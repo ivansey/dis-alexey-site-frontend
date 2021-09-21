@@ -37,6 +37,7 @@
     "email-validator": "^2.0.4",
     "jquery": "^3.6.0",
     "materialize-css": "^1.0.0-rc.2",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-cookies": "^0.1.1",
     "react-dom": "^17.0.2",
