@@ -1,0 +1,42 @@
+a {
+    &.button {
+        background: rgb(230, 38, 38);
+        color: #fff;
+        text-decoration: none;
+        margin: 10px;
+        padding: 10px;
+        border: 0;
+        text-align: center;
+
+        &:hover {
+            background: rgb(255, 0, 0);
+        }
+
+        &.big {
+            font-size: 1.3em;
+        }
+
+        &.block {
+            display: block;
+        }
+    }
+}
+
+button {
+    &.button {
+        background: rgb(230, 38, 38);
+        color: #fff;
+        text-decoration: none;
+        margin: 10px;
+        padding: 10px;
+        border: 0;
+
+        &:hover {
+            background: rgb(255, 0, 0);
+        }
+
+        &.big {
+            font-size: 1.3em;
+        }
+    }
+}

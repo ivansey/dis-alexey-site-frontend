@@ -1,0 +1,49 @@
+.pricePage {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.priceTable {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    padding-top: 25px;
+}
+
+.priceRow {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 100%;
+    padding: 20px;
+
+    & .title {
+        font-size: 1.2em;
+    }
+
+    & .priceList {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        flex-direction: column;
+
+        padding-top: 10px;
+
+        & .priceEl {
+            display: flex;
+            justify-content: space-around;
+
+            & .priceCost::after {
+                content: " RUB";
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@import "./elements/links.scss";
+@import "./elements/img.scss";
+@import "./pages/Index.scss";
+
+@font-face {
+    font-family: "Product Sans";
+    src: url("../fonts/productSans.ttf");
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+    font-family: "Product Sans";
+}
+
+*:focus {
+	outline: none;
+}
