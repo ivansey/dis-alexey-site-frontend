@@ -18,8 +18,6 @@ class AdminPortfolioGet extends Component {
 			this.props.history.push("/admin/login");
 		}
 
-        console.log("eee");
-
         this.get();
 	}
 

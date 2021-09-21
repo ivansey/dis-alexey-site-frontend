@@ -24,6 +24,7 @@ import AdminPortfolioAdd from "./AdminPanel/Portfolio/Add.jsx";
 import AdminPortfolioGet from "./AdminPanel/Portfolio/Get.jsx";
 
 import AdminOrders from "./AdminPanel/Orders/Index.jsx";
+import AdminOrderGet from "./AdminPanel/Orders/Get.jsx";
 
 import {Route} from "react-router-dom";
 
@@ -83,6 +84,7 @@ class Index extends Component {
 				<Route path="/admin/portfolio/get/:id" exact component={AdminPortfolioGet}/>
 
 				<Route path="/admin/orders" exact component={AdminOrders}/>
+				<Route path="/admin/orders/get/:id" exact component={AdminOrderGet}/>
 		</div>;
 	}
 }
