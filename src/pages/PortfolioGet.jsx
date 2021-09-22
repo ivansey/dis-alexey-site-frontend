@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import store from "../store";
 
-import Menu from "../components/Menu.jsx";
-
 class PortfolioGet extends Component {
 	constructor(props) {
 		super(props);

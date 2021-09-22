@@ -10,6 +10,8 @@ import axios from "axios";
 // import "materialize-css/extras/noUiSlider/nouislider.js";
 
 import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
+
 import MainPage from "./MainPage.jsx";
 import PriceList from "./PriceList.jsx";
 import Portfolio from "./Portfolio.jsx";
@@ -85,6 +87,8 @@ class Index extends Component {
 
 				<Route path="/admin/orders" exact component={AdminOrders}/>
 				<Route path="/admin/orders/get/:id" exact component={AdminOrderGet}/>
+
+				<Footer/>
 		</div>;
 	}
 }
