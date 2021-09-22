@@ -13,9 +13,9 @@ class AdminPanel extends Component {
 	}
 
     render() {
-		return <div className="flexPage">
-            <h2>Здравствуйте, {store.getState().userInfo.name}</h2>
+		return <div className="container">
 			<br />
+            <h2>Здравствуйте, {store.getState().userInfo.name}</h2>
 			<Link className="btn red" to="/admin/portfolio">Управление списком работ</Link>
 			<br />
 			<Link className="btn red" to="/admin/orders">Заказы</Link>

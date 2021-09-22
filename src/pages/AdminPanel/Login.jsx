@@ -59,15 +59,19 @@ class Login extends Component {
     }
     
     render() {
-		return <div className="flexPage">
+		return <div className="container">
+            <br />
             <h2>Вход в админ-панель</h2>
-            <br />
-            <label htmlFor="email">EMail</label>
-            <input type="email" name="email" id="email" onChange={this.handleEmail}/>
-            <br />
-            <label htmlFor="pass">Пароль</label>
-            <input type="password" name="pass" id="pass" onChange={this.handlePass}/>
-            <br />
+            <div className="row">
+                <div className="col s12">
+                    <p htmlFor="email">EMail</p>
+                    <input type="email" name="email" id="email" onChange={this.handleEmail}/>
+                    <br />
+                    <p htmlFor="pass">Пароль</p>
+                    <input type="password" name="pass" id="pass" onChange={this.handlePass}/>
+                    <br />
+                </div>
+            </div>
             {
                 this.state.response === "err" && this.state.response === "err"
                     ? <div>
@@ -78,7 +82,7 @@ class Login extends Component {
                     : null
             }
             <br />
-            <button className="button big" onClick={this.sendForm}>Вход</button>
+            <button className="btn red" onClick={this.sendForm}>Вход</button>
 		</div>;
 	}
 }

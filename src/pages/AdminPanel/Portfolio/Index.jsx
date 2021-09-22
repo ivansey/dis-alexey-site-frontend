@@ -30,7 +30,8 @@ class AdminPortfolio extends Component {
     }
 
     render() {
-		return <div className="flexPage">
+		return <div className="container">
+            <br />
             <h2>Портфолио</h2>
 			<br />
 			<Link className="button" to="/admin/portfolio/add">Добавить</Link>
