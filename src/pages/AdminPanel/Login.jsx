@@ -38,11 +38,7 @@ class Login extends Component {
             const req = data.data;
 
             if (req.response === "ok") {
-                store.dispatch({
-                    type: "token/add",
-                    token: req.data.token,
-                })
-                cookies.save("token", req.data.token, {path: "/"});
+                localStorage.setItem("token", req.data.token);
                 this.props.history.push("/");
             } else {
                 this.setState({response: req.response, error: req.error});

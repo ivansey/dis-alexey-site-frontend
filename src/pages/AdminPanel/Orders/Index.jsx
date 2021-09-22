@@ -18,7 +18,7 @@ function AdminOrders(props) {
     })
 
     function getOrders() {
-        axios.post("/api/orders/get", {token: store.getState().token}).then(data => {
+        axios.post("/api/orders/get", {token: localStorage.getItem("token")}).then(data => {
             const req = data.data;
 
             setOrders(req.data);

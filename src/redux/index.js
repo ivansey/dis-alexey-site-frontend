@@ -1,7 +1,5 @@
 export default (state, action) => {
     switch (action.type) {
-        case "token/add":
-            return Object.assign(state, {token: action.token});
         case "loginStatus/true":
             return Object.assign(state, {loginStatus: true});
         case "loginStatus/false":

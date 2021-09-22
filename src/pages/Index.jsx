@@ -36,12 +36,12 @@ class Index extends Component {
 	}
 
 	checkToken() {
-		axios.post("/api/users/auth/checkToken", {token: store.getState().token}).then((data) => {
+		axios.post("/api/users/auth/checkToken", {token: localStorage.getItem("token")}).then((data) => {
 			const req = data.data;
 
 			if (req.response === "ok") {
 				store.dispatch({type: "loginStatus/true"});
-				axios.post("/api/users/auth/get", {token: store.getState().token}).then(data => {
+				axios.post("/api/users/auth/get", {token: localStorage.getItem("token")}).then(data => {
 					const req = data.data;
 
 					store.dispatch({

@@ -45,7 +45,7 @@ class AdminPortfolioAdd extends Component {
             typeWork: this.state.typeWork,
             typeContent: "",
             files: this.state.files,
-            token: store.getState().token,
+            token: localStorage.getItem("token"),
         }).then((data) => {
             const req = data.data;
 

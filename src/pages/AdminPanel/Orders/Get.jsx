@@ -21,7 +21,7 @@ function AdminOrderGet(props) {
     })
 
     function getOrder() {
-        axios.post("/api/orders/get/id", {token: store.getState().token, _id: props.match.params.id}).then(data => {
+        axios.post("/api/orders/get/id", {token: localStorage.getItem("token"), _id: props.match.params.id}).then(data => {
             console.log(data.data);
             setOrder(data.data.data);
             setIsLoading(false)
