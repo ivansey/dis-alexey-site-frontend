@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import store from "../store";
 
-import "../styles/pages/PriceList.scss";
-
 class PriceList extends Component {
     render() {
 		return <div>
