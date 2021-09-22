@@ -1,6 +1,9 @@
 node_modules
 .vscode
 
-dist
+dist/*.js*
+dist/*.png
+dist/*.jpg
+dist/*.gif
 
 package-lock.json
