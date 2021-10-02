@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-// import cookies from "react-cookies";
 import store from "../store";
 import axios from "axios";
-
-// import "../styles/index.scss";
 
 // import "materialize-css/extras/noUiSlider/nouislider.css";
 // import "materialize-css/extras/noUiSlider/nouislider.js";
