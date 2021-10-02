@@ -66,6 +66,33 @@ class PriceList extends Component {
                         <br />
                         <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
                     </div>
+                    <div className="col s12 m12 l12">
+                        <h5>Комплексная обработка</h5>
+                        <table>
+                            <tr>
+                                <td>1-ком квартира</td>
+                                <td>6500 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>2-ком квартира</td>
+                                <td>7000 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>3-ком квартира</td>
+                                <td>7500 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>4-ком квартира</td>
+                                <td>8000 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>5-ком квартира</td>
+                                <td>8500 ₽</td>
+                            </tr>
+                        </table>
+                        <br />
+                        <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
+                    </div>
                 </div>
 
                 <h5>Вторая обработка - скидка 50%</h5>
