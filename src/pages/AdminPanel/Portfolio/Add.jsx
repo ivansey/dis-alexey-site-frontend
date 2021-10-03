@@ -13,6 +13,7 @@ class AdminPortfolioAdd extends Component {
             desc: "",
             typeWork: "home",
             files: [],
+            urlYouTubeVideo: "",
             response: "ready",
             mediaResponse: "ready",
             error: "",
@@ -28,15 +29,8 @@ class AdminPortfolioAdd extends Component {
         this.handleDesc = this.handleDesc.bind(this);
         this.handleTypeWork = this.handleTypeWork.bind(this);
         this.handleUploadMedia = this.handleUploadMedia.bind(this);
+        this.handleUrlYouTubeVideo = this.handleUrlYouTubeVideo.bind(this);
 	}
-
-    getList() {
-        axios.post("/api/works/get/all", {token: store.getState().token}).then(data => {
-            const req = data.data;
-
-            this.setState({list: req.data, response: req.response});
-        })
-    }
 
     sendForm() {
         axios.post("/api/works/add", {
@@ -45,6 +39,7 @@ class AdminPortfolioAdd extends Component {
             typeWork: this.state.typeWork,
             typeContent: "",
             files: this.state.files,
+            urlYouTubeVideo: this.state.urlYouTubeVideo,
             token: localStorage.getItem("token"),
         }).then((data) => {
             const req = data.data;
@@ -59,6 +54,11 @@ class AdminPortfolioAdd extends Component {
 
     handleName(event) {
         this.setState({name: event.target.value});
+    }
+
+    handleUrlYouTubeVideo(event) {
+        console.log(event.target.value)
+        this.setState({urlYouTubeVideo: event.target.value});
     }
 
     handleDesc(event) {
@@ -85,9 +85,6 @@ class AdminPortfolioAdd extends Component {
         data.append("file", this.media.files[0]);
         data.append("filename", "media_" + Date.now() + ".png");
 
-        // console.log(fl);
-        
-
         axios.post("/api/storage/media/upload", data).then(data => {
             fl[fl.length] = data.data.url;
             this.setState({files: fl, mediaResponse: "ok"});
@@ -102,23 +99,26 @@ class AdminPortfolioAdd extends Component {
     }
 
     render() {
-		return <div className="flexPage">
+		return <div className="container">
             <h2>Добавление кейса</h2>
 			<br />
-            <label htmlFor="name">name</label>
+            <p htmlFor="name">Имя</p>
             <input type="text" name="name" id="name" onChange={this.handleName}/>
             <br />
-            <label htmlFor="desc">desc</label>
-            <textarea type="text" name="desc" id="desc" value={this.state.desc} onChange={this.handleDesc}/>
+            <p htmlFor="desc">Описание</p>
+            <textarea name="desc" id="desc" value={this.state.desc} onChange={this.handleDesc}/>
             <br />
-            <label htmlFor="typeWork">typeWork</label>
+            <p htmlFor="urlYouTubeVideo">Видео в YouTube</p>
+            <input type="text" name="urlYouTubeVideo" id="urlYouTubeVideo" onChange={this.handleUrlYouTubeVideo}/>
+            <br />
+            <p htmlFor="typeWork">Тип работы</p>
             <select name="typeWork" id="typeWork" value={this.state.typeWork} onChange={this.handleTypeWork}>
                 <option value="home">Квартиры</option>
                 <option value="street">Участки</option>
                 <option value="factory">Производственные, общепит и общежития</option>
             </select>
             <br />
-            <label htmlFor="files">files</label>
+            <p htmlFor="files">Фото</p>
             <input type="file" id="icon" onChange={this.handleUploadMedia} ref={(ref) => {
 						this.media = ref;
 					}}/>
