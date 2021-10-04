@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cc": "rimraf ./node_modules/.cache",
     "preinstall": "npm run cc",
-    "postinstall": "npm run cc"
+    "postinstall": "npm run cc",
+    "startProd": "webpack serve -c ./webpack.prod.config.js"
   },
   "proxy": "http://localhost:3001/",
   "author": "IvanSey & Alexey",
@@ -29,7 +30,8 @@
     "terser-webpack-plugin": "^5.2.0",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.0.0",
+    "webpack-strip": "^0.1.0"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
