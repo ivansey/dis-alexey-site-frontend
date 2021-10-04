@@ -3,8 +3,8 @@ import {withRouter} from "react-router-dom";
 import store from "../store";
 import axios from "axios";
 
-// import "materialize-css/extras/noUiSlider/nouislider.css";
-// import "materialize-css/extras/noUiSlider/nouislider.js";
+import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min.js";
 
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -56,14 +56,26 @@ class Index extends Component {
 
 	componentDidMount() {
 		this.checkToken();
+
+		let elems = document.querySelectorAll('select');
+		M.FormSelect.init(elems, {});
+
+		let elems1 = document.querySelectorAll('.collapsible');
+		M.Collapsible.init(elems1, {});
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.location.pathname !== prevProps.location.pathname) {
 			this.checkToken();
+
+			let elems = document.querySelectorAll('select');
+			M.FormSelect.init(elems, {});
+
+			let elems1 = document.querySelectorAll('.collapsible');
+			M.Collapsible.init(elems1, {});
 		}
 
-		console.log("login status: ", store.getState().loginStatus);
+
 	}
 
 	render() {
