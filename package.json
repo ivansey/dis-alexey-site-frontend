@@ -10,7 +10,7 @@
     "cc": "rimraf ./node_modules/.cache",
     "preinstall": "npm run cc",
     "postinstall": "npm run cc",
-    "startProd": "webpack serve -c ./webpack.prod.config.js"
+    "startProd": "webpack serve -c ./webpack.prod.config.js --host $HOST"
   },
   "proxy": "http://localhost:3001/",
   "author": "IvanSey & Alexey",
