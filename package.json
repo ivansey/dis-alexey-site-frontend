@@ -10,7 +10,7 @@
     "cc": "rimraf ./node_modules/.cache",
     "preinstall": "npm run cc",
     "postinstall": "npm run cc",
-    "startProd": "webpack serve -c ./webpack.prod.config.js --host $HOST"
+    "startProd": "webpack serve -c ./webpack.prod.config.js --host superantiklop.ru"
   },
   "proxy": "http://localhost:3001/",
   "author": "IvanSey & Alexey",
