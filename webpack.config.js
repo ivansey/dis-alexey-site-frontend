@@ -17,6 +17,7 @@ if (!process.env.HTTPS) {
 	HTTPS = {
         key: process.env.KEY,
         cert: process.env.CERT,
+		cacert: process.env.CACERT,
         requestCert: true,
     };
 }
