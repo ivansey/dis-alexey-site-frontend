@@ -1,18 +1,20 @@
 const path = require("path");
 const TerserJsPlugin = require("terser-webpack-plugin");
 
-require("dotenv").config();
+require("dotenv").config({path: "./.env"});
+
+let HOST, HTTPS = null;
 
 if (!process.env.HOST) {
-	const HOST = "all";
+	HOST = "all";
 } else {
-	const HOST = process.env.HOST;
+	HOST = process.env.HOST;
 }
 
 if (!process.env.HTTPS) {
-	const HTTPS = false;
+	HTTPS = false;
 } else {
-	const HTTPS = {
+	HTTPS = {
         key: process.env.KEY,
         cert: process.env.CERT,
         requestCert: true,
