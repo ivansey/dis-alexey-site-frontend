@@ -1,6 +1,24 @@
 const path = require("path");
 const TerserJsPlugin = require("terser-webpack-plugin");
 
+require("dotenv").config();
+
+if (!process.env.HOST) {
+	const HOST = "all";
+} else {
+	const HOST = process.env.HOST;
+}
+
+if (!process.env.HTTPS) {
+	const HTTPS = false;
+} else {
+	const HTTPS = {
+        key: process.env.KEY,
+        cert: process.env.CERT,
+        requestCert: true,
+    };
+}
+
 module.exports = {
 	entry: "./src/index.js",
   	mode: "development",
@@ -12,8 +30,10 @@ module.exports = {
 		static: {
 			directory: path.join(__dirname, "dist"),
 		},
-		compress: true,
-		port: 3000,
+		allowedHosts: [HOST],
+        compress: true,
+        port: !HTTPS ? 80 : 443,
+        https: HTTPS,
 		historyApiFallback: true,
 		proxy: {
 			"/api/**": {
