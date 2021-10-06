@@ -6,3 +6,5 @@ dist/*.jpg
 dist/*.gif
 
 package-lock.json
+
+.env
