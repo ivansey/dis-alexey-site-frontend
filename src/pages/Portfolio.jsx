@@ -33,27 +33,17 @@ class Portfolio extends Component {
         })
     }
 
-    printType(type = "factory") {
-        switch(type) {
-            case "home":
-                return "Квартиры и дома";
-            case "street":
-                return "Участки";
-            case "factory":
-                return "Корпоративные клиенты";
-        }
-    }
-
     render() {
 		return <div>
             <br />
             <div className="container">
-                <h2>Мои работы - {this.printType(this.props.match.params.type)}</h2>
+                <h2>Мои работы</h2>
                 <br />
                 <ul className="collection">
                     <Link className={this.props.location.pathname === "/portfolio/home" ? "collection-item active" : "collection-item"} to="/portfolio/home">Квартиры и дома</Link>
                     <Link className={this.props.location.pathname === "/portfolio/street" ? "collection-item active" : "collection-item"} to="/portfolio/street">Участки</Link>
                     <Link className={this.props.location.pathname === "/portfolio/factory" ? "collection-item active" : "collection-item"} to="/portfolio/factory">Корпоративные клиенты</Link>
+                    <Link className={this.props.location.pathname === "/portfolio/return" ? "collection-item active" : "collection-item"} to="/portfolio/return">Результаты</Link>
                 </ul>
                 <br />
                 {

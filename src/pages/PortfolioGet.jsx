@@ -37,17 +37,6 @@ class PortfolioGet extends Component {
         })
     }
 
-    printType(type = "factory") {
-        switch(type) {
-            case "home":
-                return "Квартира";
-            case "street":
-                return "Участок";
-            case "factory":
-                return "Производственные, общепит и общежития";
-        }
-    }
-
     render() {
 		return <div>
             <br />
@@ -66,7 +55,6 @@ class PortfolioGet extends Component {
                     this.state.response === "ok"
                         ? <div>
                             <h2>{this.state.data.name}</h2>
-                            <p>{this.printType(this.state.data.typeWork)}</p>
                             <p>{this.state.data.desc}</p>
                             <br/>
                             <IframeYouTube source={this.state.data.urlYouTubeVideo}/>

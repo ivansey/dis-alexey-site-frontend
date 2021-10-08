@@ -34,7 +34,9 @@ class AdminPortfolioGet extends Component {
             case "street":
                 return "Участок";
             case "factory":
-                return "Производственные, общепит и общежития";
+                return "Корпоративные клиенты";
+            case "return":
+                return "Результаты";
         }
     }
 

@@ -115,7 +115,8 @@ class AdminPortfolioAdd extends Component {
             <select name="typeWork" id="typeWork" value={this.state.typeWork} onChange={this.handleTypeWork}>
                 <option value="home">Квартиры</option>
                 <option value="street">Участки</option>
-                <option value="factory">Производственные, общепит и общежития</option>
+                <option value="factory">Корпоративные клиенты</option>
+                <option value="return">Результаты</option>
             </select>
             <br />
             <p htmlFor="files">Фото</p>
