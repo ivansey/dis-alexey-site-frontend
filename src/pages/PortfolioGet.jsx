@@ -3,17 +3,7 @@ import { withRouter } from "react-router";
 import axios from "axios";
 import store from "../store";
 
-const IframeYouTube = ({source}) => {
-    if (!source) {
-        return null;
-    }
-
-    const src = source;
-    return <div className="video-container">
-        <iframe width="853" height="480" src={src}
-                frameBorder="0" allowFullScreen/>
-    </div>
-}
+import IframeVideo from "../components/IframeVideo.jsx";
 
 class PortfolioGet extends Component {
 	constructor(props) {
@@ -57,12 +47,12 @@ class PortfolioGet extends Component {
                             <h2>{this.state.data.name}</h2>
                             <p>{this.state.data.desc}</p>
                             <br/>
-                            <IframeYouTube source={this.state.data.urlYouTubeVideo}/>
+                            <IframeVideo source={this.state.data.urlYouTubeVideo}/>
                             <br/>
                             <div className="row">
                                 {
                                     this.state.data.urlContent.map(e => {
-                                        return <img className="col s12" src={"/api"+e} alt="" />
+                                        return <div className="col s12"><img src={"/api"+e} alt="" /><br/></div>
                                     })
                                 }
                             </div>
