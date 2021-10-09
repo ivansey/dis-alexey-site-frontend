@@ -63,7 +63,7 @@ class Portfolio extends Component {
                                 return <div className="col s12 m6 l6">
                                     <div className="card" key={i}>
                                         {
-                                            !e.urlContent[0]
+                                            e.urlContent[0]
                                                 ? <div className="card-image">
                                                     <img src={"/api" + e.urlContent[0]} alt={e.name} />
                                                 </div>
