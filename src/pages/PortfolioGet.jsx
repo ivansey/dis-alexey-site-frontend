@@ -5,6 +5,11 @@ import store from "../store";
 
 import IframeVideo from "../components/IframeVideo.jsx";
 
+const styleImage = {
+    margin: "10px",
+    display: "block",
+}
+
 class PortfolioGet extends Component {
 	constructor(props) {
 		super(props);
@@ -52,7 +57,7 @@ class PortfolioGet extends Component {
                             <div className="row">
                                 {
                                     this.state.data.urlContent.map(e => {
-                                        return <div><img className="col s12" src={"/api"+e} alt="" /><br/></div>
+                                        return <div><img style={styleImage} className="col s12" src={"/api"+e} alt="" /><br/></div>
                                     })
                                 }
                             </div>

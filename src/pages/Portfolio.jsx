@@ -62,9 +62,13 @@ class Portfolio extends Component {
                             ? this.state.list.map((e, i) => {
                                 return <div className="col s12 m6 l6">
                                     <div className="card" key={i}>
-                                        <div className="card-image">
-                                            <img src={"/api" + e.urlContent[0]} alt={e.name} />
-                                        </div>
+                                        {
+                                            !e.urlContent[0]
+                                                ? <div className="card-image">
+                                                    <img src={"/api" + e.urlContent[0]} alt={e.name} />
+                                                </div>
+                                                : null
+                                        }
                                         <div className="card-content">
                                             <span className="card-title">{e.name}</span>
                                         </div>
