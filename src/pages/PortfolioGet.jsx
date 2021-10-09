@@ -52,7 +52,7 @@ class PortfolioGet extends Component {
                             <div className="row">
                                 {
                                     this.state.data.urlContent.map(e => {
-                                        return <div className="col s12"><img src={"/api"+e} alt="" /><br/></div>
+                                        return <div><img className="col s12" src={"/api"+e} alt="" /><br/></div>
                                     })
                                 }
                             </div>
