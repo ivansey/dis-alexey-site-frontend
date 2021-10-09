@@ -254,7 +254,7 @@ function Calc(props) {
                     <option value="Видное" data-icon={vidnoe}>Видное</option>
                     <option value="Серпухов" data-icon={serpuchov}>Серпухов (+ 500 ₽)</option>
                     <option value="Щербинов" data-icon={shcherbinov}>Щербинов</option>
-                    <option value="Юг Москвы" data-icon={moscow}>Юг Москвы</option>
+                    <option value="Климовск" data-icon={}>Климовск</option>
                 </select>
             </div>
             <h6>Выезд специалиста бесплатно, кроме района Серпухова (500 ₽)</h6>
