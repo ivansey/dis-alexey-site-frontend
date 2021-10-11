@@ -57,7 +57,6 @@ class AdminPortfolioAdd extends Component {
     }
 
     handleUrlYouTubeVideo(event) {
-        console.log(event.target.value)
         this.setState({urlYouTubeVideo: event.target.value});
     }
 

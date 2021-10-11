@@ -27,6 +27,12 @@ class AdminPortfolioGet extends Component {
         })
     }
 
+    del() {
+        axios.post("/api/works/delete", {_id: this.props.match.params.id, token: localStorage.getItem("token")}).then(data => {
+            this.setState({data: data.data.data, response: data.data.response});
+        })
+    }
+
     printType(type = "factory") {
         switch(type) {
             case "home":
@@ -45,6 +51,7 @@ class AdminPortfolioGet extends Component {
             <h2>Портфолио</h2>
 			<br />
 			<Link className="button" to="/admin/portfolio/add">Добавить</Link>
+            <button className="btn red" onClick={() => this.del()}>Удалить</button>
             <br />
             {
                 this.state.response === "loading"
