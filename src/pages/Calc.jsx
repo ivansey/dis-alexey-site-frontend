@@ -374,7 +374,9 @@ function Calc(props) {
                 </div>
                 <label>* - обязательные поля</label></div>
             <br />
+            <p>При нажатии на кнопку "Отправить", вы соглашаетесь с <a href="/pol.txt" target="_blank">Политикой в отношении персональных данных</a></p>
             <button className="btn" onClick={send}>Отправить</button>
+            <br/>
         </div>
     </div>
 }
