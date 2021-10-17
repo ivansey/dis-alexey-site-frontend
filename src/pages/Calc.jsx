@@ -31,7 +31,7 @@ function Calc(props) {
 
     const [name, setName] = useState(".");
     const [phone, setPhone] = useState(".");
-    const [email, setEmail] = useState(".");
+    const [adress, setAdress] = useState("");
     const [isWhatsApp, setIsWhatsApp] = useState(false);
 
     const [validName, setValidName] = useState(true);
@@ -67,7 +67,7 @@ function Calc(props) {
 
             name: name,
             phone: phone,
-            email: email,
+            adress: adress,
             isWhatsApp: isWhatsApp,
         }}).then(data => {
             if (data.data.response === "ok") {
@@ -358,22 +358,22 @@ function Calc(props) {
             <h5>Контактные данные</h5>
             <div className="row">
                 <div className="input-field col s12 m6 l3">
-                    <p>Имя *</p>
+                    <p>Имя</p>
                     <input type="text" className={validName ? "validate" : "invalid"} onChange={event => setName(event.target.value)}/>
                 </div>
                 <div className="input-field col s12 m6 l3">
-                    <p>Телефон *</p>
+                    <p>Телефон</p>
                     <input type="text" className={validPhone ? "validate" : "invalid"} onChange={event => setPhone(event.target.value)}/>
                 </div>
                 <div className="input-field col s12 m6 l3">
-                    <p>EMail</p>
-                    <input type="email" className={validEmail ? "validate" : "invalid"} onChange={event => setEmail(event.target.value)}/>
+                    <p>Адрес (по желанию)</p>
+                    <input type="text" onChange={event => setAdress(event.target.value)}/>
                 </div>
                 <div className="col s12 m6 l3">
                     <label><input type="checkbox" onChange={() => setIsWhatsApp(!isWhatsApp)}/><span>Есть ли WhatsApp на этом номере?</span></label>
                 </div>
-                <label>* - обязательные поля</label></div>
             <br />
+            </div>
             <p>При нажатии на кнопку "Отправить", вы соглашаетесь с <a href="/pol.html" target="_blank">Политикой в отношении персональных данных</a></p>
             <button className="btn" onClick={send}>Отправить</button>
             <br/>
