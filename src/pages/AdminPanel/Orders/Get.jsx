@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import store from "../../../store";
 
