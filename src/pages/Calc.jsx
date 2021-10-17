@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router-dom";
 import axios from "axios";
 import Scroll from "react-scroll";
-import EmailValidator from "email-validator";
+import moment from "moment";
 
 import "materialize-css/dist/js/materialize.min";
 
@@ -37,6 +37,12 @@ function Calc(props) {
     const [validName, setValidName] = useState(true);
     const [validPhone, setValidPhone] = useState(true);
 
+    const [timeOrder, setTimeOrder] = useState("");
+    const [dateOrder, setDateOrder] = useState("");
+
+    const [dates, setDates] = useState(getDate());
+    const [times, setTimes] = useState(getTimes());
+
     function send() {
         if (!validName) {
             window.M.toast({html: "Не введено имя"});
@@ -61,6 +67,9 @@ function Calc(props) {
 
             cost: cost,
 
+            timeOrder: timeOrder,
+            dateOrder: dateOrder,
+
             name: name,
             phone: phone,
             adress: adress,
@@ -72,6 +81,26 @@ function Calc(props) {
                 window.M.toast({html: "Ошибка"});
             }
         })
+    }
+
+    function getDate() {
+        let dates = [];
+
+        for (let i = 0; i < 13; i++) {
+            dates.push(<option value={moment(new Date()).add(i, "d").format("x")}>{moment(new Date()).locale("ru").add(i, "d").format("DD MMMM")}</option>);
+        }
+
+        return dates;
+    }
+
+    function getTimes() {
+        let times = [];
+
+        for (let i = 0; i < 15; i++) {
+            times.push(<option value={moment("10:00:00", "HH:mm:ss").add(i, "h").format("x")}>{moment("10:00:00", "HH:mm:ss").add(i, "h").format("HH:mm")} {moment("10:00:00", "HH:mm:ss").add(i, "h") >= moment("17:00:00", "HH:mm:ss") ? "(+30% к цене)" : null}</option>);
+        }
+
+        return times;
     }
 
     function validateForm() {
@@ -96,12 +125,18 @@ function Calc(props) {
                 if (city === "Серпухов") {
                     c = c + 500;
                 }
+                if (moment(timeOrder, "x") >= moment("17:00:00", "HH:mm:ss")) {
+                    c = c + ((c / 100) * 30);
+                }
                 setCost(c);
                 return;
             case "homestead":
                 square.map((e, i) => c = c + calcOneHomestead(e, trees[i]));
                 if (city === "Серпухов") {
                     c = c + 500;
+                }
+                if (moment(timeOrder, "x") >= moment("17:00:00", "HH:mm:ss")) {
+                    c = c + ((c / 100) * 30);
                 }
                 setCost(c);
                 return;
@@ -110,8 +145,6 @@ function Calc(props) {
                 setCost(c);
                 return;
         }
-        
-        console.log(c);
     }
 
     function calcAllApartments() {
@@ -320,6 +353,21 @@ function Calc(props) {
             </div>
             <br />
             <div className="col s12">
+                <label forHTML="dates">Выбирите дату заказа</label>
+                <select name="dates" onChange={event => setDateOrder(event.target.value)}>
+                    {dates.map(d => {return d})}
+                </select>
+            </div>
+            <br />
+            <div className="col s12">
+                <label forHTML="times">Выбирите время заказа</label>
+                <select name="times" onChange={event => setTimeOrder(event.target.value)}>
+                    {times.map(d => {return d})}
+                </select>
+            </div>
+            <p>После 17:00 - к стоимости заказа +30%</p>
+            <br />
+            <div className="col s12">
                 <table>
                     <tr>
                         <th>Выезд специалиста</th>
@@ -337,7 +385,31 @@ function Calc(props) {
                         typeObject === "apartment" && countApartment > 1
                             ? <tr>
                                 <th>Скидка за 2 и более квартир (-10%)</th>
-                                <th>-{(calcAllApartments() / 100) * 10} ₽</th>
+                                <th>- {(calcAllApartments() / 100) * 10} ₽</th>
+                            </tr>
+                            : null
+                    }
+                    {
+                        moment(new Date(Number(timeOrder))) >= moment("17:00:00", "HH:mm:ss")
+                            ? <tr>
+                                <th>Поздний выезд специалиста (+30%)</th>
+                                <th>+ 
+                                {
+                                    typeObject === "apartment"
+                                        ? (calcAllApartments() / 100) * 30 + "₽"
+                                        : null
+                                }
+                                {
+                                    typeObject === "homestead"
+                                        ? (calcAllHomestead() / 100) * 30 + "₽"
+                                        : null
+                                }
+                                {
+                                    typeObject === "homestead"
+                                        ? "+30%"
+                                        : null
+                                }
+                                </th>
                             </tr>
                             : null
                     }
