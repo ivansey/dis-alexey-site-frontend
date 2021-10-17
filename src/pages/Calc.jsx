@@ -36,7 +36,6 @@ function Calc(props) {
 
     const [validName, setValidName] = useState(true);
     const [validPhone, setValidPhone] = useState(true);
-    const [validEmail, setValidEmail] = useState(true);
 
     function send() {
         if (!validName) {
@@ -45,10 +44,7 @@ function Calc(props) {
         } else if (!validPhone) {
             window.M.toast({html: "Не введен номер телефона"});
             return;
-        } else if (!validEmail) {
-            window.M.toast({html: "Не корректный EMail"});
-            return;
-        } 
+        }
         
         axios.post("/api/orders/add", {form: {
             typeObject: typeObject,
@@ -89,12 +85,6 @@ function Calc(props) {
             setValidPhone(true);
         } else {
             setValidPhone(false);
-        }
-
-        if (email === "" || email === "." || EmailValidator.validate(email) === true) {
-            setValidEmail(true);
-        } else {
-            setValidEmail(false);
         }
     }
 
