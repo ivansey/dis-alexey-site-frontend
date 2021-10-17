@@ -38,12 +38,12 @@ function Calc(props) {
     const [validPhone, setValidPhone] = useState(true);
 
     const [timeOrder, setTimeOrder] = useState("");
-    const [dateOrder, setDateOrder] = useState("");
+    const [dateOrder, setDateOrder] = useState(moment(new Date()).format("x"));
 
-    const [dates, setDates] = useState(getDate());
-    const [times, setTimes] = useState([]);
-    const [disTimes, setDisTimes] = useState([])
     const [isLoading, setIsLoading] = useState(true);
+
+    const [times, setTimes] = useState([]);
+    const [dates, setDates] = useState(getDate());
 
     function send() {
         if (!validName) {
@@ -92,41 +92,22 @@ function Calc(props) {
 
         for (let i = 0; i < 13; i++) {
             dates.push(<option
-                value={moment(new Date()).add(i, "d").format("x")}>{moment(new Date()).locale("ru").add(i, "d").format("DD MMMM")}</option>);
+                value={moment(new Date()).add(i, "days").format("DD/MM")}>{moment(new Date()).locale("ru").add(i, "d").format("DD MMMM")}</option>);
         }
-
+        
         return dates;
     }
 
-    function getTimes() {
-        let times = [];
-        let timestamp, time, nightTime;
-        let disabled;
-        let date = moment(dateOrder, "x").format("DD/MM");
-        console.log(date);
-
-        for (let i = 0; i < 15; i++) {
-            timestamp = moment(`${date} 10:00:00`, "DD/MM HH:mm:ss").add(i, "h").format("x");
-            time = moment(`${date} 10:00:00`, "DD/MM HH:mm:ss").add(i, "h").format("HH:mm");
-            console.log(time, timestamp, `${date} 10:00:00`);
-            nightTime = moment(`${date} 10:00:00`, "DD/MM HH:mm:ss").add(i, "h") >= moment(`${date} 17:00:00`, "DD/MM HH:mm:ss") ? "(+30% к цене)" : null;
-            times.push(<option disabled={disabled} value={timestamp}>{time} {nightTime}</option>);
-            console.log(times);
-        }
-
-        setTimes(times);
-        setIsLoading(false);
+    function getTimes(date = dateOrder) {
+        axios.post("/api/orders/times/get", {dateOrder: date}).then(d => {
+            console.log(d.data);
+            setTimes(d.data.times);
+        })
     }
 
     function handleDate(e) {
         setDateOrder(e);
-        setIsLoading(true);
-    }
-
-    function checkTime(time) {
-        return axios.post("/api/orders/times/checkOne", {time: time}).then(d => {
-            return d.data.find;
-        })
+        getTimes(e);
     }
 
     function validateForm() {
@@ -294,9 +275,8 @@ function Calc(props) {
     useEffect(() => {
         calcAll();
         validateForm();
-        if (isLoading) {
-            getTimes();
-        }
+        let elems = document.querySelectorAll('select');
+		M.FormSelect.init(elems, {});
     })
 
     return <div>
@@ -410,6 +390,7 @@ function Calc(props) {
             <div className="col s12">
                 <label forHTML="dates">Выбирите дату заказа</label>
                 <select name="dates" onChange={event => handleDate(event.target.value)}>
+                    <option value="" selected>---</option>
                     {dates.map(d => {
                         return d
                     })}
@@ -419,8 +400,8 @@ function Calc(props) {
             <div className="col s12">
                 <label forHTML="times">Выбирите время заказа</label>
                 <select name="times" onChange={event => setTimeOrder(event.target.value)}>
-                    {times.map(d => {
-                        return d
+                    {times.map((d ,i) => {
+                        return <option disabled={d.disabled} value={d.timestamp}>{d.time} {d.nightTime ? "(+30%)" : null} {d.disabled ? "занято" : null}</option>
                     })}
                 </select>
             </div>
