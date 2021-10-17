@@ -132,7 +132,7 @@ function Calc(props) {
                 if (city === "Серпухов") {
                     c = c + 500;
                 }
-                if (moment(timeOrder, "x") >= moment("17:00:00", "HH:mm:ss")) {
+                if (moment(timeOrder, "x") >= moment("20:00:00", "HH:mm:ss")) {
                     c = c + ((c / 100) * 30);
                 }
                 setCost(c);
@@ -142,7 +142,7 @@ function Calc(props) {
                 if (city === "Серпухов") {
                     c = c + 500;
                 }
-                if (moment(timeOrder, "x") >= moment("17:00:00", "HH:mm:ss")) {
+                if (moment(timeOrder, "x") >= moment("20:00:00", "HH:mm:ss")) {
                     c = c + ((c / 100) * 30);
                 }
                 setCost(c);
@@ -430,7 +430,7 @@ function Calc(props) {
                             : null
                     }
                     {
-                        moment(new Date(Number(timeOrder))) >= moment("17:00:00", "HH:mm:ss")
+                        moment(new Date(Number(timeOrder))) >= moment("20:00:00", "HH:mm:ss")
                             ? <tr>
                                 <th>Поздний выезд специалиста (+30%)</th>
                                 <th>+
