@@ -4,8 +4,6 @@ import axios from "axios";
 import Scroll from "react-scroll";
 import moment from "moment";
 
-import "materialize-css/dist/js/materialize.min";
-
 import chehov from "../pictures/citys/chehov.png";
 import domoded from "../pictures/citys/domoded.gif";
 import moscow from "../pictures/citys/moscow.jpg";
@@ -14,7 +12,24 @@ import serpuchov from "../pictures/citys/serpuchov.gif";
 import shcherbinov from "../pictures/citys/shcherbinov.png"
 import vidnoe from "../pictures/citys/vidnoe.gif";
 
+import {
+    Alert,
+    Button,
+    ButtonGroup,
+    Grid,
+    Container,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Paper,
+    Slider,
+    TextField,
+} from "@mui/material";
+
 function Calc(props) {
+    const [page, setPage] = useState(1);
+
     const [typeObject, setTypeObject] = useState("apartment");
     const [typeTreatment, setTypeTreatment] = useState("coldFog");
     const [typeTreatmentHomestead, setTypeTreatmentHomestead] = useState("benz");
@@ -94,7 +109,7 @@ function Calc(props) {
             dates.push(<option
                 value={moment(new Date()).add(i, "days").format("DD/MM")}>{moment(new Date()).locale("ru").add(i, "d").format("DD MMMM")}</option>);
         }
-        
+
         return dates;
     }
 
@@ -276,214 +291,324 @@ function Calc(props) {
         calcAll();
         validateForm();
         let elems = document.querySelectorAll('select');
-		M.FormSelect.init(elems, {});
+        M.FormSelect.init(elems, {});
     })
 
-    return <div>
+    return <Container>
         <br/>
-        <div className="container">
-            <h2>Заказ</h2>
-            <div className="col s12">
-                <h5>Выбирите район:</h5>
-                <select onChange={event => setCity(event.target.value)}>
-                    <option value="Подольск" selected data-icon={podolsk}>Подольск</option>
-                    <option value="Чехов" data-icon={chehov}>Чехов</option>
-                    <option value="Домодедово" data-icon={domoded}>Домодедово</option>
-                    <option value="Видное" data-icon={vidnoe}>Видное</option>
-                    <option value="Серпухов" data-icon={serpuchov}>Серпухов (+ 500 ₽)</option>
-                    <option value="Щербинов" data-icon={shcherbinov}>Щербинов</option>
-                    <option value="Климовск">Климовск</option>
-                </select>
-            </div>
-            <h6>Выезд специалиста бесплатно, кроме района Серпухова (500 ₽)</h6>
-            <h5>Тип объекта:</h5>
-            <div className="row">
-                <button className={`btn ${typeObject === "apartment" ? "orange" : "red"}`}
-                        onClick={() => setTypeObject("apartment")}>Квартира
-                </button>
-                <button className={`btn ${typeObject === "homestead" ? "orange" : "green"}`}
-                        onClick={() => setTypeObject("homestead")}>Участок
-                </button>
-                <button className={`btn ${typeObject === "corp" ? "orange" : "blue"}`}
-                        onClick={() => setTypeObject("corp")}>Корпоративный клиент
-                </button>
-            </div>
-            {
-                typeObject === "apartment"
-                    ? <div>
-                        <div className="row">
-                            <button className={`btn ${typeTreatment === "coldFog" ? "orange" : "red"}`}
-                                    onClick={() => setTypeTreatment("coldFog")}>Холодный туман
-                            </button>
-                            <button className={`btn ${typeTreatment === "hotFog" ? "orange" : "blue"}`}
-                                    onClick={() => setTypeTreatment("hotFog")}>Горячий туман
-                            </button>
-                            <button className={`btn ${typeTreatment === "duoFog" ? "orange" : "green"}`}
-                                    onClick={() => setTypeTreatment("duoFog")}>Комплексная обработка
-                            </button>
-                        </div>
-                        <br/>
-                        <button className="btn green" onClick={addApartment}>Добавить квартиру</button>
-                        <button className="btn red" onClick={delApartment}>Удалить квартиру</button>
-                        {
-                            countApartment >= 2
-                                ? <h5>Вам предостовляется скидка 10% при обработке 2-ух и более квартир</h5>
-                                : null
-                        }
-                        {
-                            rooms.map((e, i) => {
-                                return <p className="range-field" key={i}>
-                                    <h6>#{i + 1} Количество комнат ({e}), стоимость: {calcOneApartment(e)} ₽</h6>
-                                    <input className="red" type="range" min="1" max="5" defaultValue="1"
-                                           onChange={event => handleRooms(event.target.value, i)}/>
-                                </p>
-                            })
-                        }
-                    </div>
-                    : null
-            }
-            {
-                typeObject === "homestead"
-                    ? <div>
-                        <div className="row">
-                            <button className={`btn ${typeTreatmentHomestead === "benz" ? "orange" : "red"}`}
-                                    onClick={() => setTypeTreatmentHomestead("benz")}>Бензиновый опрыскиватель
-                            </button>
-                            <button className={`btn ${typeTreatmentHomestead === "electro" ? "orange" : "blue"}`}
-                                    onClick={() => setTypeTreatmentHomestead("electro")}>Электрический опрыскиватель
-                            </button>
-                        </div>
-                        <br/>
-                        <button className="btn green" onClick={addHomestead}>Добавить участок</button>
-                        <button className="btn red" onClick={delHomestead}>Удалить участок</button>
-                        {
-                            square.map((e, i) => {
-                                return <p className="input-field" key={i}>
-                                    <p>#{i + 1} Площадь участка (сот.), стоимость: {calcOneHomestead(e, trees[i])} ₽</p>
-                                    <input type="number" min="1" defaultValue="1"
-                                           onChange={event => handleHomestead(event.target.value, i)}/>
-                                    <p>Количество деревьев (шт.)</p>
-                                    <input type="number" min="0" defaultValue="0"
-                                           onChange={event => handleHomesteadTrees(event.target.value, i)}/>
-                                </p>
-                            })
-                        }
-                        <h5>Общая площадь: {calcSumSquare().square} сот.</h5>
-                        <h5>Общее количество деревьев: {calcSumSquare().trees} шт.</h5>
-                    </div>
-                    : null
-            }
-            {
-                typeObject === "corp"
-                    ? <div>
-                        <h5>Стоимость обговаривается индивидуально</h5>
-                    </div>
-                    : null
-            }
-            <Scroll.Element name="down"/>
-            <h5>Каких вы заметили паразитов?</h5>
-            <div className="input-field col s12">
-                <textarea className="materialize-textarea" defaultValue={pests}
-                          onChange={event => setPests(event.target.value)}></textarea>
-            </div>
-            <br/>
-            <div className="col s12">
-                <label forHTML="dates">Выбирите дату заказа</label>
-                <select name="dates" onChange={event => handleDate(event.target.value)}>
-                    <option value="" selected>---</option>
-                    {dates.map(d => {
-                        return d
-                    })}
-                </select>
-            </div>
-            <br/>
-            <div className="col s12">
-                <label forHTML="times">Выбирите время заказа</label>
-                <select name="times" onChange={event => setTimeOrder(event.target.value)}>
-                    {times.map((d ,i) => {
-                        return <option disabled={d.disabled} value={d.timestamp}>{d.time} {d.nightTime ? "(+30%)" : null} {d.disabled ? "занято" : null}</option>
-                    })}
-                </select>
-            </div>
-            <p>После 17:00 - к стоимости заказа +30%</p>
-            <br/>
-            <div className="col s12">
-                <table>
-                    <tr>
-                        <th>Выезд специалиста</th>
-                        <th>{city === "Серпухов" ? "500" : "0"} ₽</th>
-                    </tr>
-                    <tr>
-                        <th>Стоимость обработки:</th>
-                        <th>
-                            {typeObject === "apartment" ? calcAllApartments() : null}
-                            {typeObject === "homestead" ? calcAllHomestead() : null}
-                            ₽
-                        </th>
-                    </tr>
+        <h4>Заказ онлайн</h4>
+        {
+            page === 1
+                ? <div>
+                    <h5>Выбор города</h5>
+                    <br/>
+
+                    <FormControl fullWidth>
+                        <InputLabel id="city">Город</InputLabel>
+                        <Select labelId="city" label="Город" onChange={event => setCity(event.target.value)}>
+                            <MenuItem value="Подольск" selected>Подольск</MenuItem>
+                            <MenuItem value="Климовск">Климовск</MenuItem>
+                            <MenuItem value="Чехов">Чехов</MenuItem>
+                            <MenuItem value="Домодедово">Домодедово</MenuItem>
+                            <MenuItem value="Видное">Видное</MenuItem>
+                            <MenuItem value="Серпухов">Серпухов (+ 500 ₽)</MenuItem>
+                            <MenuItem value="Щербинов">Щербинов</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <br/>
+                    <br/>
+                    <Alert severity="warning">Выезд специалиста в Серпухов +500 ₽</Alert>
+                    <br/>
+                    <Button variant="contained" onClick={() => setPage(page + 1)}>Далее</Button>
+                    <br/>
+                </div>
+                : null
+        }
+        {
+            page === 2
+                ? <div>
+                    <h5>Тип объекта:</h5>
+                    <ButtonGroup fullWidth orientation="vertical" variant="contained">
+                        <Button fullWidth variant={`${typeObject === "apartment" ? "contained" : "outlined"}`}
+                                onClick={() => setTypeObject("apartment")} xs={12} lg={3}>Квартира
+                        </Button>
+                        <Button fullWidth variant={`${typeObject === "homestead" ? "contained" : "outlined"}`}
+                                onClick={() => setTypeObject("homestead")} xs={12} lg={3}>Участок
+                        </Button>
+                        <Button fullWidth variant={`${typeObject === "corp" ? "contained" : "outlined"}`}
+                                onClick={() => setTypeObject("corp")} xs={12} lg={3}>Корпоративный клиент
+                        </Button>
+                    </ButtonGroup>
+                    <br/>
+                    <br/>
+
+                    <ButtonGroup variant="contained">
+                        <Button onClick={() => setPage(page - 1)}>Назад</Button>
+                        <Button onClick={() => setPage(page + 1)}>Далее</Button>
+                    </ButtonGroup>
+                    <br/>
+                </div>
+                : null
+        }
+        {
+            page === 3
+                ? <div>
                     {
-                        typeObject === "apartment" && countApartment > 1
-                            ? <tr>
-                                <th>Скидка за 2 и более квартир (-10%)</th>
-                                <th>- {(calcAllApartments() / 100) * 10} ₽</th>
-                            </tr>
+                        typeObject === "apartment"
+                            ? <div>
+                                <ButtonGroup fullWidth orientation="vertical" variant="contained">
+                                    <Button fullWidth variant={`${typeTreatment === "coldFog" ? "contained" : "outlined"}`}
+                                            onClick={() => setTypeTreatment("coldFog")} xs={12} lg={3}>Холодный туман
+                                    </Button>
+                                    <Button fullWidth variant={`${typeTreatment === "hotFog" ? "contained" : "outlined"}`}
+                                            onClick={() => setTypeTreatment("hotFog")} xs={12} lg={3}>Горячий туман
+                                    </Button>
+                                    <Button fullWidth variant={`${typeTreatment === "duoFog" ? "contained" : "outlined"}`}
+                                            onClick={() => setTypeTreatment("duoFog")} xs={12} lg={3}>Комплексная обработка
+                                    </Button>
+                                </ButtonGroup>
+                                <br/>
+                                <br/>
+                                <ButtonGroup variant="contained">
+                                    <Button onClick={addApartment}>Добавить квартиру</Button>
+                                    <Button onClick={delApartment}>Удалить квартиру</Button>
+                                </ButtonGroup>
+                                <br/>
+                                <br/>
+                                {
+                                    countApartment >= 2
+                                        ? <Alert severity="success">Вам предостовляется скидка 10% при обработке 2-ух и более
+                                            квартир</Alert>
+                                        : null
+                                }
+                                <br/>
+                                {
+                                    rooms.map((e, i) => {
+                                        return <div key={i}>
+                                            <h6>#{i + 1} Количество комнат ({e}), стоимость: {calcOneApartment(e)} ₽</h6>
+
+                                            <FormControl fullWidth>
+                                                <Slider
+                                                    onChange={event => handleRooms(event.target.value, i)}
+                                                    defaultValue={1}
+                                                    getAriaValueText={val => {
+                                                        return val + " ком."
+                                                    }}
+                                                    step={1}
+                                                    min={1}
+                                                    max={5}
+                                                    valueLabelDisplay="auto"
+                                                    marks={[
+                                                        {
+                                                            value: 1,
+                                                            label: "1 ком."
+                                                        },
+                                                        {
+                                                            value: 2,
+                                                            label: "2 ком."
+                                                        },
+                                                        {
+                                                            value: 3,
+                                                            label: "3 ком."
+                                                        }, {
+                                                            value: 4,
+                                                            label: "4 ком."
+                                                        },
+                                                        {
+                                                            value: 5,
+                                                            label: "5 ком."
+                                                        },
+                                                    ]}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                    })
+                                }
+                                <br/>
+                            </div>
                             : null
                     }
                     {
-                        moment(timeOrder, "x") >= moment(dateOrder + " 17:00:00", "DD/MM HH:mm:ss")
-                            ? <tr>
-                                <th>Поздний выезд специалиста (+30%)</th>
-                                <th>+
-                                    {
-                                        typeObject === "apartment"
-                                            ? (calcAllApartments() / 100) * 30 + "₽"
-                                            : null
-                                    }
-                                    {
-                                        typeObject === "homestead"
-                                            ? (calcAllHomestead() / 100) * 30 + "₽"
-                                            : null
-                                    }
-                                    {
-                                        typeObject === "homestead"
-                                            ? "+30%"
-                                            : null
-                                    }
-                                </th>
-                            </tr>
+                        typeObject === "homestead"
+                            ? <div>
+                                <ButtonGroup fullWidth orientation="vertical" variant="contained">
+                                    <Button fullWidth
+                                            variant={`${typeTreatmentHomestead === "benz" ? "contained" : "outlined"}`}
+                                            onClick={() => setTypeTreatmentHomestead("benz")} xs={12} lg={3}>Бензиновый
+                                        опрыскиватель
+                                    </Button>
+                                    <Button fullWidth
+                                            variant={`${typeTreatmentHomestead === "benz" ? "contained" : "outlined"}`}
+                                            onClick={() => setTypeTreatmentHomestead("benz")} xs={12} lg={3}>Электрический
+                                        опрыскиватель
+                                    </Button>
+                                </ButtonGroup>
+                                <br/>
+                                <br/>
+                                <ButtonGroup variant="contained">
+                                    <Button onClick={addHomestead}>Добавить участок</Button>
+                                    <Button onClick={delHomestead}>Удалить участок</Button>
+                                </ButtonGroup>
+                                <br/>
+                                <br/>
+                                {
+                                    square.map((e, i) => {
+                                        return <div key={i}>
+                                            <p>#{i + 1} Стоимость за участок: {calcOneHomestead(e, trees[i])} ₽</p>
+                                            <input type="number" min="1" defaultValue="1"
+                                            />
+                                            <FormControl fullWidth>
+                                                <TextField label="Площадь в сотках" variant="outlined"
+                                                           onChange={event => handleHomestead(event.target.value, i)} min={1}
+                                                           defaultValue={1}/>
+                                                <br/>
+                                                <TextField label="Деревьев в штуках" variant="outlined"
+                                                           onChange={event => handleHomesteadTrees(event.target.value, i)}
+                                                           min={0} defaultValue={0}/>
+                                            </FormControl>
+                                            <p>Количество деревьев (шт.)</p>
+                                            <input type="number" min="0" defaultValue="0"
+                                                   onChange={event => handleHomesteadTrees(event.target.value, i)}/>
+                                        </div>
+                                    })
+                                }
+                                <br/>
+                                <h6>Общая площадь: {calcSumSquare().square} сот.</h6>
+                                <h6>Общее количество деревьев: {calcSumSquare().trees} шт.</h6>
+                            </div>
                             : null
                     }
-                </table>
+                    {
+                        typeObject === "corp"
+                            ? <div>
+                                <Alert severity="info">Стоимость обговаривается индивидуально</Alert>
+                            </div>
+                            : null
+                    }
+                    <Scroll.Element name="down"/>
+                    <br/>
+                    <ButtonGroup variant="contained">
+                        <Button onClick={() => setPage(page - 1)}>Назад</Button>
+                        <Button onClick={() => setPage(page + 1)}>Далее</Button>
+                    </ButtonGroup>
+                    <br/>
+                </div>
+                : null
+        }
+        {
+            page === 4
+                ? <div>
+                    <FormControl fullWidth>
+                        <TextField label="Каких вы заметили паразитов?" variant="outlined" multiline
+                                   onChange={event => setPests(event.target.value)}/>
+                    </FormControl>
+                    <br/>
+                    <ButtonGroup variant="contained">
+                        <Button onClick={() => setPage(page - 1)}>Назад</Button>
+                        <Button onClick={() => setPage(page + 1)}>Далее</Button>
+                    </ButtonGroup>
+                </div>
+                : null
+        }
+
+        <br/>
+        <div className="col s12">
+            <label forHTML="dates">Выбирите дату заказа</label>
+            <select name="dates" onChange={event => handleDate(event.target.value)}>
+                <option value="" selected>---</option>
+                {dates.map(d => {
+                    return d
+                })}
+            </select>
+        </div>
+        <br/>
+        <div className="col s12">
+            <label forHTML="times">Выбирите время заказа</label>
+            <select name="times" onChange={event => setTimeOrder(event.target.value)}>
+                {times.map((d, i) => {
+                    return <option disabled={d.disabled}
+                                   value={d.timestamp}>{d.time} {d.nightTime ? "(+30%)" : null} {d.disabled ? "занято" : null}</option>
+                })}
+            </select>
+        </div>
+        <p>После 17:00 - к стоимости заказа +30%</p>
+        <br/>
+        <div className="col s12">
+            <table>
+                <tr>
+                    <th>Выезд специалиста</th>
+                    <th>{city === "Серпухов" ? "500" : "0"} ₽</th>
+                </tr>
+                <tr>
+                    <th>Стоимость обработки:</th>
+                    <th>
+                        {typeObject === "apartment" ? calcAllApartments() : null}
+                        {typeObject === "homestead" ? calcAllHomestead() : null}
+                        ₽
+                    </th>
+                </tr>
+                {
+                    typeObject === "apartment" && countApartment > 1
+                        ? <tr>
+                            <th>Скидка за 2 и более квартир (-10%)</th>
+                            <th>- {(calcAllApartments() / 100) * 10} ₽</th>
+                        </tr>
+                        : null
+                }
+                {
+                    moment(timeOrder, "x") >= moment(dateOrder + " 17:00:00", "DD/MM HH:mm:ss")
+                        ? <tr>
+                            <th>Поздний выезд специалиста (+30%)</th>
+                            <th>+
+                                {
+                                    typeObject === "apartment"
+                                        ? (calcAllApartments() / 100) * 30 + "₽"
+                                        : null
+                                }
+                                {
+                                    typeObject === "homestead"
+                                        ? (calcAllHomestead() / 100) * 30 + "₽"
+                                        : null
+                                }
+                                {
+                                    typeObject === "homestead"
+                                        ? "+30%"
+                                        : null
+                                }
+                            </th>
+                        </tr>
+                        : null
+                }
+            </table>
+        </div>
+        <h4>Итог: {cost} ₽</h4>
+        <br/>
+        <h5>Контактные данные</h5>
+        <div className="row">
+            <div className="input-field col s12 m6 l3">
+                <p>Имя</p>
+                <input type="text" className={validName ? "validate" : "invalid"}
+                       onChange={event => setName(event.target.value)}/>
             </div>
-            <h4>Итог: {cost} ₽</h4>
-            <br/>
-            <h5>Контактные данные</h5>
-            <div className="row">
-                <div className="input-field col s12 m6 l3">
-                    <p>Имя</p>
-                    <input type="text" className={validName ? "validate" : "invalid"}
-                           onChange={event => setName(event.target.value)}/>
-                </div>
-                <div className="input-field col s12 m6 l3">
-                    <p>Телефон</p>
-                    <input type="text" className={validPhone ? "validate" : "invalid"}
-                           onChange={event => setPhone(event.target.value)}/>
-                </div>
-                <div className="input-field col s12 m6 l3">
-                    <p>Адрес (по желанию)</p>
-                    <input type="text" onChange={event => setAdress(event.target.value)}/>
-                </div>
-                <div className="col s12 m6 l3">
-                    <label><input type="checkbox" onChange={() => setIsWhatsApp(!isWhatsApp)}/><span>Есть ли WhatsApp на этом номере?</span></label>
-                </div>
-                <br/>
+            <div className="input-field col s12 m6 l3">
+                <p>Телефон</p>
+                <input type="text" className={validPhone ? "validate" : "invalid"}
+                       onChange={event => setPhone(event.target.value)}/>
             </div>
-            <p>При нажатии на кнопку "Отправить", вы соглашаетесь с <a href="/pol.html" target="_blank">Политикой в
-                отношении персональных данных</a></p>
-            <button className="btn" onClick={send}>Отправить</button>
+            <div className="input-field col s12 m6 l3">
+                <p>Адрес (по желанию)</p>
+                <input type="text" onChange={event => setAdress(event.target.value)}/>
+            </div>
+            <div className="col s12 m6 l3">
+                <label><input type="checkbox" onChange={() => setIsWhatsApp(!isWhatsApp)}/><span>Есть ли WhatsApp на этом номере?</span></label>
+            </div>
             <br/>
         </div>
-    </div>
+        <p>При нажатии на кнопку "Отправить", вы соглашаетесь с <a href="/pol.html" target="_blank">Политикой в
+            отношении персональных данных</a></p>
+        <button className="btn" onClick={send}>Отправить</button>
+        <br/>
+    </Container>
 }
 
 export default withRouter(Calc);

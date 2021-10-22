@@ -1,141 +1,153 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Alert, Container, Grid, Table, TableBody, TableRow, TableCell, TableContainer, Paper} from "@mui/material";
 import store from "../store";
+import NewOrderButtons from "../components/NewOrderButtons.jsx";
 
 class PriceList extends Component {
     render() {
-		return <div>
-            <div className="container center-align">
-                <br />
+        return <div>
+            <Container sx={{textAlign: "center"}}>
+                <br/>
                 <h2>Цены и услуги</h2>
                 <h4>Квартиры</h4>
-                <div className="row">
-                    <div className="col s12 m12 l6">
-                        <h5>Холодный туман</h5>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>1-ком квартира</td>
-                                <td>3000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>2-ком квартира</td>
-                                <td>3300 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>3-ком квартира</td>
-                                <td>3500 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>4-ком квартира</td>
-                                <td>3800 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>5-ком квартира</td>
-                                <td>4100 ₽</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <br />
-                        <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
-                    </div>
-                    <div className="col s12 m12 l6">
-                        <h5>Горячий туман</h5>
-                        <table>
-                            <tr>
-                                <td>1-ком квартира</td>
-                                <td>4500 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>2-ком квартира</td>
-                                <td>5000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>3-ком квартира</td>
-                                <td>5500 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>4-ком квартира</td>
-                                <td>6000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>5-ком квартира</td>
-                                <td>6500 ₽</td>
-                            </tr>
-                        </table>
-                        <br />
-                        <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
-                    </div>
-                    <div className="col s12 m12 l12">
-                        <h5>Комплексная обработка</h5>
-                        <table>
-                            <tr>
-                                <td>1-ком квартира</td>
-                                <td>6500 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>2-ком квартира</td>
-                                <td>7000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>3-ком квартира</td>
-                                <td>7500 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>4-ком квартира</td>
-                                <td>8000 ₽</td>
-                            </tr>
-                            <tr>
-                                <td>5-ком квартира</td>
-                                <td>8500 ₽</td>
-                            </tr>
-                        </table>
-                        <br />
-                        <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
-                    </div>
-                </div>
+                <Grid container spacing={2} justifyContent="center">
+                    <Grid item xs={12} lg={6}>
+                        <Paper>
+                            <h5>Холодный туман</h5>
+                            <TableContainer>
+                                <Table>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>1-ком квартира</TableCell>
+                                            <TableCell align="right">3000 ₽</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>2-ком квартира</TableCell>
+                                            <TableCell align="right">3300 ₽</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>3-ком квартира</TableCell>
+                                            <TableCell align="right">3500 ₽</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>4-ком квартира</TableCell>
+                                            <TableCell align="right">3800 ₽</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>5-ком квартира</TableCell>
+                                            <TableCell align="right">4100 ₽</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <br/>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                        <Paper>
+                            <h5>Горячий туман</h5>
+                            <TableContainer>
+                                <Table>
+                                    <TableRow>
+                                        <TableCell>1-ком квартира</TableCell>
+                                        <TableCell align="right">4500 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>2-ком квартира</TableCell>
+                                        <TableCell align="right">5000 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>3-ком квартира</TableCell>
+                                        <TableCell align="right">5500 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>4-ком квартира</TableCell>
+                                        <TableCell align="right">6000 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>5-ком квартира</TableCell>
+                                        <TableCell align="right">6500 ₽</TableCell>
+                                    </TableRow>
+                                </Table>
+                            </TableContainer>
+                            <br/>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                        <Paper>
+                            <h5>Комплексная обработка</h5>
+                            <TableContainer>
+                                <Table>
+                                    <TableRow>
+                                        <TableCell>1-ком квартира</TableCell>
+                                        <TableCell align="right">6500 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>2-ком квартира</TableCell>
+                                        <TableCell align="right">7000 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>3-ком квартира</TableCell>
+                                        <TableCell align="right">7500 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>4-ком квартира</TableCell>
+                                        <TableCell align="right">8000 ₽</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>5-ком квартира</TableCell>
+                                        <TableCell align="right">8500 ₽</TableCell>
+                                    </TableRow>
+                                </Table>
+                            </TableContainer>
+                            <br/>
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <br/>
+                <NewOrderButtons variant="contained"/>
+                <br/>
 
                 <h5>Вторая обработка - скидка 50%</h5>
                 <h5>Третья обработка - бесплатно</h5>
                 <h5>Скидка 10% при обработка двух квартир и более</h5>
-                <br />
+                <br/>
                 <h4>Участки</h4>
                 <h5>Обрабка от клещей, муравьев, ос, комаров, мух, земляных блох и т.д.</h5>
-                <br />
-                <div className="col s12 m12 l6">
-                    <table>
-                        <tr>
-                            <td>До 10 соток</td>
-                            <td>600 ₽/сотка</td>
-                        </tr>
-                        <tr>
-                            <td>До 15 соток</td>
-                            <td>550 ₽/сотка</td>
-                        </tr>
-                        <tr>
-                            <td>До 20 соток</td>
-                            <td>500 ₽/сотка</td>
-                        </tr>
-                        <tr>
-                            <td>Более 20 соток</td>
-                            <td>450 ₽/сотка</td>
-                        </tr>
-                        <tr>
-                            <td>Большие площади обговариваются индивидуально</td>
-                        </tr>
-                        <tr>
-                            <td>Обработка деревьев</td>
-                            <td>250 ₽/дерево</td>
-                        </tr>
-                    </table>
-                    <br />
-                    <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
-                </div>
-                <br />
+                <br/>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableRow>
+                            <TableCell>До 10 соток</TableCell>
+                            <TableCell align="right">600 ₽/сотка</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>До 15 соток</TableCell>
+                            <TableCell align="right">550 ₽/сотка</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>До 20 соток</TableCell>
+                            <TableCell align="right">500 ₽/сотка</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Более 20 соток</TableCell>
+                            <TableCell align="right">450 ₽/сотка</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Обработка деревьев</TableCell>
+                            <TableCell align="right">250 ₽/дерево</TableCell>
+                        </TableRow>
+                    </Table>
+                    <br/>
+                    <Alert severity="info">Большие площади обговариваются отдельно</Alert>
+                </TableContainer>
+                <br/>
+                <NewOrderButtons variant="contained"/>
+                <br/>
                 <h5>Обработка производственных помещений, общежитий, хостелов и т.д. по договорённости</h5>
-            </div>
+            </Container>
         </div>;
-	}
+    }
 }
 
 export default PriceList;

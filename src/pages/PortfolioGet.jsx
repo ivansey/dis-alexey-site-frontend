@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
 import axios from "axios";
 import store from "../store";
 
 import IframeVideo from "../components/IframeVideo.jsx";
+import {Alert, CircularProgress, Container, ImageList, ImageListItem} from "@mui/material";
 
 const styleImage = {
     margin: "10px",
@@ -11,8 +12,8 @@ const styleImage = {
 }
 
 class PortfolioGet extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
         this.state = {
             data: {
@@ -23,7 +24,7 @@ class PortfolioGet extends Component {
         }
 
         this.get();
-	}
+    }
 
     get() {
         axios.post("/api/works/get/id", {_id: this.props.match.params.id}).then(data => {
@@ -33,40 +34,40 @@ class PortfolioGet extends Component {
     }
 
     render() {
-		return <div>
-            <br />
-            <div className="container">
-                {
-                    this.state.response === "loading"
-                        ? <p>Loading...</p>
-                        : null
-                }
-                {
-                    this.state.response === "err"
-                        ? <p>err</p>
-                        : null
-                }
-                {
-                    this.state.response === "ok"
-                        ? <div>
-                            <h2>{this.state.data.name}</h2>
-                            <p>{this.state.data.desc}</p>
-                            <br/>
-                            <IframeVideo source={this.state.data.urlYouTubeVideo}/>
-                            <br/>
-                            <div className="row">
-                                {
-                                    this.state.data.urlContent.map(e => {
-                                        return <div><img style={styleImage} className="col s12" src={"/api"+e} alt="" /><br/></div>
-                                    })
-                                }
-                            </div>
-                        </div>
-                        : null
-                }
-            </div>
-        </div>;
-	}
+        return <Container>
+            <br/>
+            {
+                this.state.response === "loading"
+                    ? <CircularProgress/>
+                    : null
+            }
+            {
+                this.state.response === "err"
+                    ? <Alert severity="error">Такой работы нет</Alert>
+                    : null
+            }
+            {
+                this.state.response === "ok"
+                    ? <div>
+                        <h4>{this.state.data.name}</h4>
+                        <p>{this.state.data.desc}</p>
+                        <br/>
+                        <IframeVideo source={this.state.data.urlYouTubeVideo}/>
+                        <br/>
+                        <ImageList cols={3} rowHeight={164}>
+                            {
+                                this.state.data.urlContent.map(e => {
+                                    return <ImageListItem key={i}>
+                                        <img className="col s12" src={"/api" + e} alt={this.state.data.name} loading="lazy"/><br/>
+                                    </ImageListItem>
+                                })
+                            }
+                        </ImageList>
+                    </div>
+                    : null
+            }
+        </Container>;
+    }
 }
 
 export default withRouter(PortfolioGet);

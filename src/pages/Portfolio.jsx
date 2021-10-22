@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import {Alert, Container, Chip, Stack, Grid, Card, CardContent, CardActions, CardMedia, Button, Typography, CircularProgress} from "@mui/material";
+import {withRouter} from "react-router-dom";
 import axios from "axios";
 
 class Portfolio extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
         this.state = {
             list: [],
@@ -13,17 +13,17 @@ class Portfolio extends Component {
             error: "",
         }
 
-        this.getList(); 
+        this.getList();
 
         console.log(this.props.location)
-	}
+    }
 
     componentDidUpdate(prevProps) {
-		if (this.props.location.pathname !== prevProps.location.pathname) {
+        if (this.props.location.pathname !== prevProps.location.pathname) {
             this.setState({response: "loading"});
-			this.getList();
-		}
-	}
+            this.getList();
+        }
+    }
 
     getList() {
         axios.post("/api/works/get/all/type", {type: this.props.match.params.type}).then(data => {
@@ -34,56 +34,63 @@ class Portfolio extends Component {
     }
 
     render() {
-		return <div>
-            <br />
-            <div className="container">
-                <h2>Мои работы</h2>
-                <br />
-                <ul className="collection">
-                    <Link className={this.props.location.pathname === "/portfolio/home" ? "collection-item active" : "collection-item"} to="/portfolio/home">Квартиры и дома</Link>
-                    <Link className={this.props.location.pathname === "/portfolio/street" ? "collection-item active" : "collection-item"} to="/portfolio/street">Участки</Link>
-                    <Link className={this.props.location.pathname === "/portfolio/factory" ? "collection-item active" : "collection-item"} to="/portfolio/factory">Корпоративные клиенты</Link>
-                    <Link className={this.props.location.pathname === "/portfolio/return" ? "collection-item active" : "collection-item"} to="/portfolio/return">Результаты</Link>
-                </ul>
-                <br />
+        return <Container>
+            <br/>
+            <h4>Мои работы</h4>
+            <br/>
+            <Grid direction="row" container spacing={1} rowSpacing={1}>
+                <Chip label="Квартиры" onClick={() => this.props.history.push("/portfolio/home")}
+                      variant={this.props.location.pathname === "/portfolio/home" ? "filled" : "outlined"}/>
+                <Chip label="Участки" onClick={() => this.props.history.push("/portfolio/street")}
+                      variant={this.props.location.pathname === "/portfolio/street" ? "filled" : "outlined"}/>
+                <Chip label="Корпоративные клиенты" onClick={() => this.props.history.push("/portfolio/factory")}
+                      variant={this.props.location.pathname === "/portfolio/factory" ? "filled" : "outlined"}/>
+                <Chip label="Результаты" onClick={() => this.props.history.push("/portfolio/return")}
+                      variant={this.props.location.pathname === "/portfolio/return" ? "filled" : "outlined"}/>
+            </Grid>
+            <br/>
+            {
+                this.state.response === "loading"
+                    ? <CircularProgress/>
+                    : null
+            }
+            {
+                this.state.response === "ok" && this.state.list.length === 0
+                    ? <Alert severity="info">Работ пока нет</Alert>
+                    : null
+            }
+            <br/>
+            <Grid container spacing={2} justifyContent="center">
                 {
-                    this.state.response === "loading"
-                        ? <p>Loading...</p>
+                    this.state.response === "ok" && this.state.list.length > 0
+                        ? this.state.list.map((e, i) => {
+                            return <Card xs={12} lg={4} onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>
+                                    {
+                                        e.urlContent[0]
+                                            ? <CardMedia
+                                                component="img"
+                                                height="150"
+                                                image={"/api" + e.urlContent[0]}
+                                                alt={e.name}
+                                            />
+                                            : null
+                                    }
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {e.name}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>Подробнее</Button>
+                                    </CardActions>
+                            </Card>
+                        })
                         : null
                 }
-                {
-                    this.state.response === "ok" && this.state.list.length === 0
-                        ? <p>Нет элементов</p>
-                        : null
-                }
-                <div className="row">
-                    {
-                        this.state.response === "ok" && this.state.list.length > 0
-                            ? this.state.list.map((e, i) => {
-                                return <div className="col s12 m6 l6">
-                                    <div className="card" key={i}>
-                                        {
-                                            e.urlContent[0]
-                                                ? <div className="card-image">
-                                                    <img src={"/api" + e.urlContent[0]} alt={e.name} />
-                                                </div>
-                                                : null
-                                        }
-                                        <div className="card-content">
-                                            <span className="card-title">{e.name}</span>
-                                        </div>
-                                        <div className="card-action">
-                                            <Link to={"/portfolio/get/" + e._id}>Подробнее</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            })
-                            : null
-                    }
-                </div>
-            </div>
-        </div>;
-	}
+            </Grid>
+            <br/>
+        </Container>;
+    }
 }
 
 export default withRouter(props => <Portfolio {...props} />);

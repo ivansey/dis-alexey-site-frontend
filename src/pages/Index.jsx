@@ -66,12 +66,6 @@ class Index extends Component {
 
 	componentDidMount() {
 		this.checkToken();
-
-		let elems = document.querySelectorAll('select');
-		M.FormSelect.init(elems, {});
-
-		let elems1 = document.querySelectorAll('.collapsible');
-		M.Collapsible.init(elems1, {});
 	}
 
 	componentDidUpdate(prevProps) {

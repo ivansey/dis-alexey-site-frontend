@@ -7,7 +7,7 @@ const IframeVideo = ({source}) => {
 
     const src = source;
     return <div className="video-container">
-        <iframe width="853" height="480" src={src}
+        <iframe width="100%" height="300px" src={src}
                 frameBorder="0" allowFullScreen/>
     </div>
 }
