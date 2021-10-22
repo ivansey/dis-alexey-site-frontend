@@ -3,6 +3,9 @@ import {withRouter} from "react-router-dom";
 import store from "../store";
 import axios from "axios";
 
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {red} from "@mui/material/colors";
+
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
@@ -26,6 +29,13 @@ import AdminOrders from "./AdminPanel/Orders/Index.jsx";
 import AdminOrderGet from "./AdminPanel/Orders/Get.jsx";
 
 import {Route} from "react-router-dom";
+
+const theme = createTheme({
+	palette: {
+		primary: red,
+		secondary: red,
+	}
+})
 
 class Index extends Component {
 	constructor(props) {
@@ -80,6 +90,7 @@ class Index extends Component {
 
 	render() {
 		return <div>
+			<ThemeProvider theme={theme}>
 				<Header/>
 				<Route path="/" exact component={MainPage}/>
 				<Route path="/pricelist" exact component={PriceList}/>
@@ -98,6 +109,7 @@ class Index extends Component {
 				<Route path="/admin/orders/get/:id" exact component={AdminOrderGet}/>
 
 				<Footer/>
+			</ThemeProvider>
 		</div>;
 	}
 }

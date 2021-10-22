@@ -2,8 +2,12 @@ import React, {Component} from "react";
 import store from "../store";
 import axios from "axios";
 
+import {Button, Container, Typography} from "@mui/material";
+
 import "../styles/pages/MainPage.scss";
 import disPic from "../pictures/disPic.jpg";
+
+import MainText from "../texts/main.jsx";
 
 const textShadow = {
     textShadow: "#000 0px 0px 10px",
@@ -30,16 +34,19 @@ class MainPage extends Component {
 
     render() {
 		return <div className="">
-            <br />
-            <div className="pageHeader" style={{backgroundImage: `url(${disPic})`, width: "100%", backgroundSize: "cover", opacity: 1, padding: "40px"}}>
-                <div className="content">
-                    <h1 style={textShadow}>Уничтожение клопов, тараканов, блох, муравьев и т.д.</h1>
-                    <br/>
-                    <h3 style={textShadow}>Работаю в Подольске и его районе, Климовске, Чехове, Домодедово, Видном, Серпухове</h3>
-                    <br/>
+            <Box sx={{bgcolor: "primary.main"}}>
+                <Container>
+                    <br />
+                    <br />
+                    <Typography color="#fff" variant="h2" element="h1">Уничтожение клопов, тараканов, блох, муравьев и т.д.</Typography>
+                    <br />
+                    <Typography color="#fff" variant="h4" element="h2">Работаю в Подольске и его районе, Климовске, Чехове, Домодедово, Видном, Серпухове</Typography>
+                    <br />
                     <a className="btn red" href={`tel:${store.getState().telLink}`}>Позвонить</a>
-                </div>
-            </div>
+                </Container>
+            </Box>
+
+            <MainText />
 
             <div className="container">
                 <h3>Вопрос/Ответ</h3>
