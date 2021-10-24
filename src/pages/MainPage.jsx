@@ -7,6 +7,8 @@ import {ExpandMore} from "@mui/icons-material";
 
 import NewOrderButtons from "../components/NewOrderButtons.jsx";
 import MainText from "../texts/main.jsx";
+import Tarakans from "../texts/tarakans.jsx";
+import Klops from "../texts/klops.jsx";
 
 class MainPage extends Component {
     constructor(props) {
@@ -90,6 +92,9 @@ class MainPage extends Component {
                 <br/>
                 <Alert severity="warning">НИКОГДА не пользуйтесь химией, свойств которой, вы не знаете!</Alert>
                 <br/>
+                <Tarakans/>
+                <br/>
+                <Klops/>
             </Container>
         </div>;
     }
