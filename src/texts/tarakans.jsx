@@ -1,7 +1,7 @@
 import {Container, Alert} from "@mui/material";
 import LinkTo from "@mui/material/Link";
 import React from "react";
-import NewOrderButtons from "../components/NewOrderButtons";
+import NewOrderButtons from "../components/NewOrderButtons.jsx";
 
 function Tarakans() {
     return <Container>
