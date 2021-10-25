@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import cookies from "react-cookies";
 import {withRouter} from "react-router-dom";
 import axios from "axios";
+import {Container, FormControl, TextField, Button} from "@mui/material";
 import store from "../../store";
 
 class Login extends Component {
@@ -59,31 +60,30 @@ class Login extends Component {
     }
     
     render() {
-		return <div className="container">
+		return <Container>
             <br />
-            <h2>Вход в админ-панель</h2>
-            <div className="row">
-                <div className="col s12">
-                    <p htmlFor="email">EMail</p>
-                    <input type="email" name="email" id="email" onChange={this.handleEmail}/>
-                    <br />
-                    <p htmlFor="pass">Пароль</p>
-                    <input type="password" name="pass" id="pass" onChange={this.handlePass}/>
-                    <br />
-                </div>
-            </div>
+            <h4>Вход в админ-панель</h4>
+            <br/>
+            <FormControl fullWidth>
+                <TextField label="Логин" type="email" variant="outlined"
+                           onChange={this.handleEmail}/>
+                <br/>
+                <TextField label="Пароль" type="password" variant="outlined"
+                           onChange={this.handlePass}/>
+                <br/>
+                <Button onClick={this.sendForm}>Вход</Button>
+                <br/>
+            </FormControl>
             {
                 this.state.response === "err" && this.state.response === "err"
                     ? <div>
-                        <p>
+                        <Alert severity="error">
                             {this.getErrorText(this.state.error)}
-                        </p>
+                        </Alert>
                     </div>
                     : null
             }
-            <br />
-            <button className="btn red" onClick={this.sendForm}>Вход</button>
-		</div>;
+        </Container>;
 	}
 }
 

@@ -1,5 +1,18 @@
 import React, {Component} from "react";
-import {Alert, Container, Chip, Stack, Grid, Card, CardContent, CardActions, CardMedia, Button, Typography, CircularProgress} from "@mui/material";
+import {
+    Alert,
+    Container,
+    Chip,
+    Stack,
+    Grid,
+    Card,
+    CardContent,
+    CardActions,
+    CardMedia,
+    Button,
+    Typography,
+    CircularProgress
+} from "@mui/material";
 import {withRouter} from "react-router-dom";
 import axios from "axios";
 
@@ -64,7 +77,8 @@ class Portfolio extends Component {
                 {
                     this.state.response === "ok" && this.state.list.length > 0
                         ? this.state.list.map((e, i) => {
-                            return <Card xs={12} lg={4} onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>
+                            return <Grid item xs={12} lg={4}>
+                                <Card onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>
                                     {
                                         e.urlContent[0]
                                             ? <CardMedia
@@ -81,9 +95,11 @@ class Portfolio extends Component {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>Подробнее</Button>
+                                        <Button
+                                            onClick={() => this.props.history.push("/portfolio/get/" + e._id)}>Подробнее</Button>
                                     </CardActions>
-                            </Card>
+                                </Card>
+                            </Grid>
                         })
                         : null
                 }

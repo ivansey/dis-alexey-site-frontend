@@ -1,12 +1,13 @@
 import React, {Component} from "react";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
+import {Checkbox, FormControlLabel} from "@mui/material";
 import axios from "axios";
 import store from "../../../store";
 
 class AdminPortfolioAdd extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
         this.state = {
             name: "",
@@ -14,14 +15,15 @@ class AdminPortfolioAdd extends Component {
             typeWork: "home",
             files: [],
             urlYouTubeVideo: "",
+            isClientContent: false,
             response: "ready",
             mediaResponse: "ready",
             error: "",
         }
 
-		if (store.getState().loginStatus === false) {
-			this.props.history.push("/admin/login");
-		}
+        if (store.getState().loginStatus === false) {
+            this.props.history.push("/admin/login");
+        }
 
         this.sendForm = this.sendForm.bind(this);
 
@@ -30,7 +32,8 @@ class AdminPortfolioAdd extends Component {
         this.handleTypeWork = this.handleTypeWork.bind(this);
         this.handleUploadMedia = this.handleUploadMedia.bind(this);
         this.handleUrlYouTubeVideo = this.handleUrlYouTubeVideo.bind(this);
-	}
+        this.handleIsClientContent = this.handleIsClientContent.bind(this);
+    }
 
     sendForm() {
         axios.post("/api/works/add", {
@@ -40,6 +43,7 @@ class AdminPortfolioAdd extends Component {
             typeContent: "",
             files: this.state.files,
             urlYouTubeVideo: this.state.urlYouTubeVideo,
+            isClientContent: this.state.isClientContent,
             token: localStorage.getItem("token"),
         }).then((data) => {
             const req = data.data;
@@ -66,6 +70,12 @@ class AdminPortfolioAdd extends Component {
 
     handleTypeWork(event) {
         this.setState({typeWork: event.target.value});
+    }
+
+    handleIsClientContent(event) {
+        console.log(event.target.checked);
+        this.setState({isClientContent: event.target.checked});
+        console.log(this.state.isClientContent);
     }
 
     handleFiles(event) {
@@ -98,18 +108,18 @@ class AdminPortfolioAdd extends Component {
     }
 
     render() {
-		return <div className="container">
+        return <div className="container">
             <h2>Добавление кейса</h2>
-			<br />
+            <br/>
             <p htmlFor="name">Имя</p>
             <input type="text" name="name" id="name" onChange={this.handleName}/>
-            <br />
+            <br/>
             <p htmlFor="desc">Описание</p>
             <textarea name="desc" id="desc" value={this.state.desc} onChange={this.handleDesc}/>
-            <br />
+            <br/>
             <p htmlFor="urlYouTubeVideo">Видео в YouTube</p>
             <input type="text" name="urlYouTubeVideo" id="urlYouTubeVideo" onChange={this.handleUrlYouTubeVideo}/>
-            <br />
+            <br/>
             <p htmlFor="typeWork">Тип работы</p>
             <select name="typeWork" id="typeWork" value={this.state.typeWork} onChange={this.handleTypeWork}>
                 <option value="home">Квартиры</option>
@@ -117,13 +127,16 @@ class AdminPortfolioAdd extends Component {
                 <option value="factory">Корпоративные клиенты</option>
                 <option value="return">Результаты</option>
             </select>
-            <br />
+            <br/>
+            <FormControlLabel control={<Checkbox/>} label="Контент клиента?" onChange={this.handleIsClientContent}/>
+            <Checkbox onChange={this.handleIsClientContent}/>
+            <br/>
             <p htmlFor="files">Фото</p>
             <input type="file" id="icon" onChange={this.handleUploadMedia} ref={(ref) => {
-						this.media = ref;
-					}}/>
+                this.media = ref;
+            }}/>
             <div className="flexGallery">
-                {   
+                {
                     this.state.files.length > 0
                         ? this.state.files.map((e, i) => {
                             return this.staticImage(e);
@@ -131,10 +144,10 @@ class AdminPortfolioAdd extends Component {
                         : null
                 }
             </div>
-            <br />
+            <br/>
             <button className="button" onClick={this.sendForm}>Send</button>
-		</div>;
-	}
+        </div>;
+    }
 }
 
 export default withRouter(AdminPortfolioAdd);

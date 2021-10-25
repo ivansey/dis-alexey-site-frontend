@@ -51,6 +51,12 @@ class PortfolioGet extends Component {
                     ? <div>
                         <h4>{this.state.data.name}</h4>
                         <p>{this.state.data.desc}</p>
+                    <br/>
+                        {
+                            this.state.data.isClientContent
+                                ? <Alert severity="info">Материалы предоставлены клиентом</Alert>
+                                : null
+                        }
                         <br/>
                         <IframeVideo source={this.state.data.urlYouTubeVideo}/>
                         <br/>
