@@ -6,6 +6,7 @@ import {Alert, Container, Typography, Box, Accordion, AccordionSummary, Accordio
 import {ExpandMore} from "@mui/icons-material";
 
 import NewOrderButtons from "../components/NewOrderButtons.jsx";
+import Reviews from "../components/Reviews.jsx";
 import MainText from "../texts/main.jsx";
 import Tarakans from "../texts/tarakans.jsx";
 import Klops from "../texts/klops.jsx";
@@ -95,6 +96,11 @@ class MainPage extends Component {
                 <Tarakans/>
                 <br/>
                 <Klops/>
+                <br/>
+                <br/>
+                <h3>Отзывы</h3>
+                <Reviews/>
+                <br/>
             </Container>
         </div>;
     }
