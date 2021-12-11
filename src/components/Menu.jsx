@@ -16,7 +16,7 @@ function HideOnScroll(props) {
     </Slide>
 }
 
-function Header(props) {
+function Menu(props) {
     function hrefTo(href) {
         props.history.push(href);
     }
@@ -50,16 +50,11 @@ function Header(props) {
     //     <Toolbar/>
     // </React.Fragment>
 
-    return <div className="header">
-        <div className="left">
-            <Typography variant="h6" color="inherit" component="h1" sx={{flexGrow: 1}}
-                                        onClick={() => hrefTo("/")}>SuperAntiKlop</Typography>
-        </div>
-        <div className="right">
-            <a className="button mobile" href={`tel:${store.getState().telLink}`}><CallRounded/></a>
-            <a className="button lg" href={`tel:${store.getState().telLink}`}><CallRounded/> {store.getState().telLink}</a>
-        </div>
+    return <div className="menu-bottom">
+        <button className="button" onClick={() => hrefTo("/pricelist")}><LocalOfferRounded/>Услуги</button>
+        <button className="button" onClick={() => hrefTo("/portfolio/home")}><ClassRounded/>Обработки</button>
+        <button className="button" onClick={() => hrefTo("/calc")}><AssignmentRounded/>Заказать</button>
     </div>
 }
 
-export default withRouter(Header);
+export default withRouter(Menu);

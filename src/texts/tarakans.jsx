@@ -4,7 +4,7 @@ import React from "react";
 import NewOrderButtons from "../components/NewOrderButtons.jsx";
 
 function Tarakans() {
-    return <Container>
+    return <div className="blockContent">
         <p>
             <b>Уничтожение тараканов (в Подольске, в Климовске, в Чехове, в Троицке, в Серпухове, в Видном)</b> является
             частой услугой в последнее время.
@@ -32,7 +32,7 @@ function Tarakans() {
         <Alert severity="info">При большом количестве тараканов, возможно, понадобится вторая обработка.</Alert>
         <br/>
         <NewOrderButtons/>
-    </Container>
+    </div>
 }
 
 export default Tarakans;

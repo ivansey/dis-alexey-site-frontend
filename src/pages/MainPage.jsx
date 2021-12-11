@@ -10,6 +10,7 @@ import Reviews from "../components/Reviews.jsx";
 import MainText from "../texts/main.jsx";
 import Tarakans from "../texts/tarakans.jsx";
 import Klops from "../texts/klops.jsx";
+import Collapsible from "react-collapsible";
 
 class MainPage extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class MainPage extends Component {
 
     render() {
         return <div className="">
-            <Box sx={{bgcolor: "primary.main", color: "#fff"}}>
+            <div className="mainPageBlock">
                 <Container>
                     <br/>
                     <br/>
@@ -46,49 +47,40 @@ class MainPage extends Component {
                     <br/>
                     <br/>
                 </Container>
-            </Box>
+            </div>
 
             <MainText/>
 
-            <Container>
+            <div className="blockContent">
                 <Typography variant="h4" element="h4">Вопрос/Ответ</Typography>
-                <div>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMore/>}>Откуда берутся паразиты?</AccordionSummary>
-                        <AccordionDetails>
-                            <p>Есть несколько вариантов</p>
-                            <p>1) Возможно они есть у соседей и попадают через щели, вытяжки, вентеляцию и т.д.</p>
-                            <p>2) Вы принесли с собой с гостиницы, работы, то есть, там где большое количество людей</p>
-                            <p>3) Есть небольшая вероятность принести с общественного транспорта или общественных мест,
-                                к примеру со школы, детского сада, больницы</p>
-                            <NewOrderButtons variant="contained"/>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMore/>}>После обработки их больше не
-                            будет?</AccordionSummary>
-                        <AccordionDetails>
-                            <p>Если они есть у соседей и/или работаете там, где они присутствуют, то они рано или поздно появятся.</p>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMore/>}>Если заметили одного, к примеру клопа, то стоит ли
+                <div className="Collapsible__more">
+                    <Collapsible trigger={`@ Откуда берутся паразиты?`}>
+                        <p>Есть несколько вариантов</p>
+                        <p>1) Возможно они есть у соседей и попадают через щели, вытяжки, вентеляцию и т.д.</p>
+                        <p>2) Вы принесли с собой с гостиницы, работы, то есть, там где большое количество людей</p>
+                        <p>3) Есть небольшая вероятность принести с общественного транспорта или общественных мест,
+                            к примеру со школы, детского сада, больницы</p>
+                        <NewOrderButtons variant="contained"/>
+                    </Collapsible>
+                    <Collapsible trigger={`@ После обработки их больше не
+                            будет?`}>
+                        <p>Если они есть у соседей и/или работаете там, где они присутствуют, то они рано или поздно
+                            появятся.</p>
+                    </Collapsible>
+                    <Collapsible trigger={`@ Если заметили одного, к примеру клопа, то стоит ли
                             бить
-                            тревогу?
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <p>Стоит! К примеру, одна самка клопа откладывает до 5 яиц в сутки. Через месяц они становятся взрослыми особями. Так же не факт, что дома только один паразит. Так что рекомендуется вызывать специалиста.</p>
-                            <NewOrderButtons variant="contained"/>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary expandIcon={<ExpandMore/>}>Возможно ли самому избавиться от
-                            паразитов?</AccordionSummary>
-                        <AccordionDetails>
-                            <p>Возможно, но это может вам выйти дороже, чем вызов специалиста. Пользуйтесь услугами проверенных специалистов.</p>
-                            <NewOrderButtons variant="contained"/>
-                        </AccordionDetails>
-                    </Accordion>
+                            тревогу?`}>
+                        <p>Стоит! К примеру, одна самка клопа откладывает до 5 яиц в сутки. Через месяц они
+                            становятся взрослыми особями. Так же не факт, что дома только один паразит. Так что
+                            рекомендуется вызывать специалиста.</p>
+                        <NewOrderButtons variant="contained"/>
+                    </Collapsible>
+                    <Collapsible trigger={`@ Возможно ли самому избавиться от
+                            паразитов?`}>
+                        <p>Возможно, но это может вам выйти дороже, чем вызов специалиста. Пользуйтесь услугами
+                            проверенных специалистов.</p>
+                        <NewOrderButtons variant="contained"/>
+                    </Collapsible>
                 </div>
                 <br/>
                 <Alert severity="warning">НИКОГДА не пользуйтесь химией, свойств которой, вы не знаете!</Alert>
@@ -101,7 +93,7 @@ class MainPage extends Component {
                 <h3>Отзывы</h3>
                 <Reviews/>
                 <br/>
-            </Container>
+            </div>
         </div>;
     }
 }

@@ -9,6 +9,10 @@ import {red} from "@mui/material/colors";
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
+import "../styles/index.scss";
+
+import "material-icons/iconfont/material-icons.css";
+
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
@@ -29,6 +33,7 @@ import AdminOrders from "./AdminPanel/Orders/Index.jsx";
 import AdminOrderGet from "./AdminPanel/Orders/Get.jsx";
 
 import {Route} from "react-router-dom";
+import Menu from "../components/Menu.jsx";
 
 const theme = createTheme({
 	palette: {
@@ -103,6 +108,7 @@ class Index extends Component {
 				<Route path="/admin/orders/get/:id" exact component={AdminOrderGet}/>
 
 				<Footer/>
+				<Menu/>
 			</ThemeProvider>
 		</div>;
 	}

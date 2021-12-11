@@ -4,7 +4,7 @@ import NewOrderButtons from "../components/NewOrderButtons.jsx";
 import React from "react";
 
 function Klops() {
-    return <Container>
+    return <div className="blockContent">
         <p>
             <b>Уничтожение тараканов (в Подольске, в Климовске, в Чехове, в Троицке, в Серпухове, в Видном)</b> - это
             достаточно сложная задача, которую надо решать сразу, как заметили хоть одну особь.
@@ -50,7 +50,7 @@ function Klops() {
             ЭТО ДЕЛО СПЕЦИАЛИСТАМ!!!</Alert>
         <br/>
         <NewOrderButtons/>
-    </Container>
+    </div>
 }
 
 export default Klops;
