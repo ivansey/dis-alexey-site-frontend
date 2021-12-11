@@ -8,6 +8,7 @@ class PriceList extends Component {
         return <div>
             <Container sx={{textAlign: "center"}}>
                 <br/>
+                <br/>
                 <h2>Цены и услуги</h2>
                 <h4>Квартиры</h4>
                 <Grid container spacing={2} justifyContent="center">

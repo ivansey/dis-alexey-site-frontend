@@ -302,6 +302,7 @@ function Calc(props) {
 
     return <Container>
         <br/>
+        <br/>
         <h4>Заказ онлайн</h4>
         {
             page === 1

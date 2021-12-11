@@ -83,13 +83,14 @@ class MainPage extends Component {
                     </Collapsible>
                 </div>
                 <br/>
-                <Alert severity="warning">НИКОГДА не пользуйтесь химией, свойств которой, вы не знаете!</Alert>
+                <div className="info warning">НИКОГДА не пользуйтесь химией, свойств которой, вы не знаете!</div>
                 <br/>
                 <Tarakans/>
                 <br/>
                 <Klops/>
                 <br/>
-                <br/>
+            </div>
+            <div className="blockContent">
                 <h3>Отзывы</h3>
                 <Reviews/>
                 <br/>

@@ -36,6 +36,7 @@ class PortfolioGet extends Component {
     render() {
         return <Container>
             <br/>
+            <br/>
             {
                 this.state.response === "loading"
                     ? <CircularProgress/>
